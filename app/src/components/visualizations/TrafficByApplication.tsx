@@ -1,0 +1,111 @@
+import { useEffect, useState, useCallback } from 'react';
+import Plot from 'react-plotly.js';
+import type { FlowLogFilter } from '../../types/flowlog';
+import dataService from '../../services/dataService';
+import { VisualizationWindow } from '../VisualizationWindow';
+import { formatBytes } from '../../utils/formatters';
+
+interface TrafficByApplicationProps {
+  filter: FlowLogFilter;
+  refreshKey: number;
+}
+
+const TrafficByApplication: React.FC<TrafficByApplicationProps> = ({ filter, refreshKey }) => {
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const loadData = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      // Get top destination ports (which represent applications)
+      const results = await dataService.getTopDestinationPorts(filter, 15);
+
+      // Group by application name
+      const appMap = new Map<string, number>();
+      results.forEach((r) => {
+        const appName = r.port_name !== 'UNKNOWN' ? r.port_name : `Port ${r.port}`;
+        appMap.set(appName, (appMap.get(appName) || 0) + r.total_bytes);
+      });
+
+      const labels = Array.from(appMap.keys());
+      const values = Array.from(appMap.values());
+      const hoverText = values.map((v) => formatBytes(v));
+
+      setData({
+        x: labels,
+        y: values,
+        type: 'bar',
+        marker: {
+          color: '#ec4899',
+          line: { color: '#db2777', width: 1 },
+        },
+        text: hoverText,
+        hovertemplate: '%{x}<br>%{text}<extra></extra>',
+      });
+    } catch (err) {
+      console.error('Error loading traffic by application:', err);
+      setError(err instanceof Error ? err.message : 'Failed to load data');
+    } finally {
+      setLoading(false);
+    }
+  }, [filter, refreshKey]);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+  const renderContent = (height: number = 400) => {
+    if (loading) {
+      return (
+        <div className="viz-loading">
+          <div className="loading-spinner"></div>
+        </div>
+      );
+    }
+
+    if (error) {
+      return <div className="viz-error"><div>Error: {error}</div></div>;
+    }
+
+    if (!data) {
+      return <div className="viz-empty">No data available</div>;
+    }
+
+    return (
+      <Plot
+        data={[data]}
+        layout={{
+          autosize: true,
+          height,
+          paper_bgcolor: '#1a1a1a',
+          plot_bgcolor: '#1a1a1a',
+          font: { color: '#e5e7eb', size: 11 },
+          margin: { l: 80, r: 40, t: 30, b: 100 },
+          xaxis: {
+            title: 'Application / Service',
+            gridcolor: '#333',
+            tickangle: -45,
+          },
+          yaxis: {
+            title: 'Bytes Transferred',
+            gridcolor: '#333',
+            tickformat: '.2s',
+          },
+        }}
+        config={{ responsive: true, displayModeBar: false }}
+        style={{ width: '100%', height: '100%' }}
+      />
+    );
+  };
+
+  return (
+    <VisualizationWindow title="Traffic by Application" fullscreenChildren={renderContent(700)}>
+      {renderContent()}
+    </VisualizationWindow>
+  );
+};
+
+export default TrafficByApplication;

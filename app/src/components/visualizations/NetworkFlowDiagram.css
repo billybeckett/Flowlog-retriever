@@ -1,0 +1,51 @@
+.node-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.node-ip {
+  font-weight: 600;
+  font-size: 11px;
+}
+
+.node-hostname {
+  font-size: 9px;
+  opacity: 0.8;
+}
+
+.node-stats {
+  font-size: 9px;
+  opacity: 0.7;
+  margin-top: 2px;
+}
+
+/* React Flow custom styles */
+.react-flow__node {
+  cursor: pointer;
+}
+
+.react-flow__node:hover {
+  filter: brightness(1.2);
+}
+
+.react-flow__edge-path {
+  stroke-width: 2;
+}
+
+.react-flow__controls {
+  background: #2a2a2a;
+  border: 1px solid #3a3a3a;
+}
+
+.react-flow__controls-button {
+  background: #3a3a3a;
+  border-bottom: 1px solid #4a4a4a;
+  color: #fff;
+}
+
+.react-flow__controls-button:hover {
+  background: #4a4a4a;
+}

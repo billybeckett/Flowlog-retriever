@@ -1,0 +1,54 @@
+.top-talkers-table-wrapper {
+  overflow: auto;
+  max-height: 100%;
+}
+
+.top-talkers-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.top-talkers-table thead {
+  position: sticky;
+  top: 0;
+  background: #2a2a2a;
+  z-index: 1;
+}
+
+.top-talkers-table th {
+  padding: 0.75rem 0.5rem;
+  text-align: left;
+  font-weight: 600;
+  color: #e5e7eb;
+  border-bottom: 2px solid #3a3a3a;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.top-talkers-table td {
+  padding: 0.6rem 0.5rem;
+  border-bottom: 1px solid #2a2a2a;
+  color: #d1d5db;
+}
+
+.top-talkers-table tbody tr:hover {
+  background: #252525;
+}
+
+.ip-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.ip-addr {
+  font-weight: 500;
+  color: #e5e7eb;
+}
+
+.ip-dns {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}

@@ -1,0 +1,24 @@
+# Copy this file to terraform.tfvars and customize as needed
+
+aws_region = "us-west-1"
+
+project_name = "flowlog-retriever"
+
+# Flow logs will be archived to Glacier after this many days
+flow_logs_retention_days = 90
+
+# Flow logs will be permanently deleted after this many days
+flow_logs_expiration_days = 365
+
+# Log aggregation interval (60 = 1 minute, 600 = 10 minutes)
+# Lower interval = more granular data but higher costs
+log_aggregation_interval = 60
+
+# Enable flow logs on all VPCs in the region
+enable_flow_logs_on_all_vpcs = true
+
+tags = {
+  Project     = "flowlog-retriever"
+  Environment = "production"
+  ManagedBy   = "Terraform"
+}
