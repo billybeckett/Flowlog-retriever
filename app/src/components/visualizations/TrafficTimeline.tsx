@@ -78,11 +78,11 @@ const TrafficTimeline: React.FC<TrafficTimelineProps> = ({ filter, refreshKey })
           font: { color: '#e5e7eb', size: 11 },
           margin: { l: 80, r: 40, t: 30, b: 60 },
           xaxis: {
-            title: 'Time',
+            title: { text: 'Time' },
             gridcolor: '#333',
           },
           yaxis: {
-            title: 'Bytes Transferred',
+            title: { text: 'Bytes Transferred' },
             gridcolor: '#333',
             tickformat: '.2s',
           },

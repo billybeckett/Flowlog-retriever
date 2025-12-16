@@ -94,7 +94,7 @@ const TopDestinationIPs: React.FC<TopDestinationIPsProps> = ({ filter, refreshKe
           font: { color: '#e5e7eb', size: 11 },
           margin: { l: 200, r: 40, t: 20, b: 50 },
           xaxis: {
-            title: 'Bytes Transferred',
+            title: { text: 'Bytes Transferred' },
             gridcolor: '#333',
             tickformat: '.2s',
           },

@@ -81,7 +81,7 @@ const TopDestinationPorts: React.FC<TopDestinationPortsProps> = ({ filter, refre
           font: { color: '#e5e7eb', size: 11 },
           margin: { l: 150, r: 40, t: 20, b: 50 },
           xaxis: {
-            title: 'Bytes Transferred',
+            title: { text: 'Bytes Transferred' },
             gridcolor: '#333',
             tickformat: '.2s',
           },

@@ -85,12 +85,12 @@ const TrafficByApplication: React.FC<TrafficByApplicationProps> = ({ filter, ref
           font: { color: '#e5e7eb', size: 11 },
           margin: { l: 80, r: 40, t: 30, b: 100 },
           xaxis: {
-            title: 'Application / Service',
+            title: { text: 'Application / Service' },
             gridcolor: '#333',
             tickangle: -45,
           },
           yaxis: {
-            title: 'Bytes Transferred',
+            title: { text: 'Bytes Transferred' },
             gridcolor: '#333',
             tickformat: '.2s',
           },
